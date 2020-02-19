@@ -21,29 +21,19 @@ public class SortingUtility implements SortingUtilityIF {
         }
         return product;
     }
-    private List <Product> quickSort(List <Product> qList, int low, int high){
-        Product pivot = qList.get(high);
-        int i = (low-1); // index of smaller element
-        for (int j=low; j<high; j++)
-        {
-            // If current element is smaller than the pivot
-            if (qList.get(j).getID() < pivot.getID())
-            {
-                i++;
+    private List <Product> quickSort(List <Product> items, int low, int high){
+        Product pivot = items.get(high);
 
-                // swap arr[i] and arr[j]
-                Product temp = qList.get(i);
-                qList.set(i, qList.get(j));
-                qList.set(j, temp);
+        for(int i = 0; i < high; i++)
+            for(int j = i+1; j < high+1; j++){
+                if(items.get(i).getID() > (items.get(j).getID())){
+                    Product temp = items.get(i);
+                    items.set(i, items.get(j));
+                    items.set(j, temp);
+                }
             }
-        }
 
-        // swap arr[i+1] and arr[high] (or pivot)
-        Product temp1 = qList.get(i+1);
-        qList.set(i+1, qList.get(high));
-        qList.set(high, temp1);
-
-        return qList;
+        return items;
     }
     private List <Product> bubbleSort(List <Product> bSort)
     {
