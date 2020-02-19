@@ -20,7 +20,9 @@ public class Main {
         items.add(p4);
         items.add(p5);
         items.add(p6);
+        System.out.println("");
         sortedList.sort(items, 1);
+        System.out.println("");
         sortedList.sort(items, 2);
 
 

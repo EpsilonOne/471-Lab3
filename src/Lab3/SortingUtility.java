@@ -1,14 +1,22 @@
 package Lab3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SortingUtility implements SortingUtilityIF {
 
+    /****Attributes****/
     private List<Product> product;
 
-    public SortingUtility(){}
+    /****Constructor****/
+    public SortingUtility(){
 
+    }
+
+    /****Methods****/
+    //Overridden sort method accepts a list of product type and integer
+    //and calls the sort type based on integer
     @Override
     public List<Product> sort(List<Product> items, int sortType) {
         this.product = items;
@@ -21,20 +29,48 @@ public class SortingUtility implements SortingUtilityIF {
         }
         return product;
     }
-    private List <Product> quickSort(List <Product> items, int low, int high){
-        Product pivot = items.get(high);
 
-        for(int i = 0; i < high; i++)
-            for(int j = i+1; j < high+1; j++){
-                if(items.get(i).getID() > (items.get(j).getID())){
-                    Product temp = items.get(i);
-                    items.set(i, items.get(j));
-                    items.set(j, temp);
-                }
+    //quick Sort
+    public List<Product> quickSort(List<Product> items, int low, int high){
+
+        //pivot from middle of list
+        int middle = low + (high - low) / 2;
+        int pivot = items.get(middle).getID();
+
+        // make left < pivot and right > pivot
+        int i = low, j = high;
+        while (i <= j)
+        {
+            //Check until all values on left side array are lower than pivot
+            while (items.get(i).getID() < pivot)
+            {
+                i++;
             }
-
+            //Check until all values on left side array are greater than pivot
+            while (items.get(j).getID() > pivot)
+            {
+                j--;
+            }
+            //swap if needed, update iterators
+            if (i <= j)
+            {
+                Collections.swap(items, i, j);
+                i++;
+                j--;
+            }
+        }
+        //recursive call to sort two sub arrays
+        if (low < j){
+            quickSort(items, low, j);
+        }
+        if (high > i){
+            quickSort(items, i, high);
+        }
         return items;
     }
+
+
+
     private List <Product> bubbleSort(List <Product> bSort)
     {
         int n = bSort.size();
